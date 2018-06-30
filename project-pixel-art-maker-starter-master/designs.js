@@ -3,24 +3,36 @@
 
 // When size is submitted by the user, call makeGrid()
 
+$('#submit').click(function(a){
+    makeGrid();
+    a.preventDefault();
+});
 
 
 function makeGrid() {
+    //removing the exited table
+    $('tr').remove();
 
-    $('#submit').on('mouseenter',function(){
-        var table = $('#pixelCanvas');
-        for (var i = 0; i < $("#inputHeight").val(); i++) {
-            row = $('<tr></tr>');
-            for (var j = 0; j < $("#inputWeight").val(); j++) {
-                var rowData = $('<td></td>').addClass("bar").click(function(){
-                    $(this).css("background-color", $("#colorPicker").val());
-                })
-                row.append(rowData);
-            }
-            table.append(row);
+    const table = $('#pixelCanvas');
+    for (var i = 0; i < $("#inputHeight").val(); i++) {
+        row = $('<tr></tr>');
+        for (var j = 0; j < $("#inputWeight").val(); j++) {
+            var rowData = $('<td></td>').addClass("bar").click(function(){
+                    
+                if($(this).attr('style')){
+                    $(this).removeAttr('style');
+                }else{
+                    
+                    $(this).attr('style', 'background:' + $("#colorPicker").val());
+                }
+            })
+            row.append(rowData);
         }
-    });
+        table.append(row);
+    }
+        
+    
        
 }
 
-makeGrid();
+
